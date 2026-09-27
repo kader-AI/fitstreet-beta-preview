@@ -9,7 +9,7 @@ const selectedPlatform = () => form.elements.platform.value;
 const updatePlatform = () => {
   document.querySelector('#platform-note').textContent = selectedPlatform() === 'ios'
     ? 'Sur iPhone, l’installation passe par TestFlight.'
-    : 'Sur Android, tu installes FitStreet avec un fichier APK.';
+    : 'Indique l’adresse de ton compte Google. Après l’inscription, tu accèdes au téléchargement ici.';
 };
 form.querySelectorAll('[name=platform]').forEach(input => input.addEventListener('change', updatePlatform));
 document.querySelector('#demo-fill').addEventListener('click', () => {

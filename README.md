@@ -11,7 +11,9 @@ App Store ouvre la véritable fiche de TestFlight.
 
 Le rendu est une maquette personnalisée du parcours envisagé. Ce n’est pas une
 capture de Notion : l’habillage exact devra être adapté si Notion gratuit est retenu.
-La connexion à l’envoi des emails et à App Store Connect constitue une étape séparée.
+Le parcours Android prévu garde l’email obligatoire pour le suivi dans un Sheet
+privé, puis affiche le téléchargement après attribution de l’accès Drive, sans
+attendre un email. Le branchement Google et App Store Connect reste à activer.
 
 ### Accueil
 
