@@ -1,38 +1,15 @@
-# FitStreet · Aperçu de l’accès bêta
+# FitStreet · Accès bêta
 
-## [👉 Ouvrir la maquette interactive sur iPhone](https://kader-ai.github.io/fitstreet-beta-preview/)
+[Ouvrir le formulaire](https://kader-ai.github.io/fitstreet-beta-preview/)
 
-Choisis **iPhone** ou **Android**, puis touche **Essayer avec une adresse fictive**.
-Le bouton soleil permet aussi de voir le thème clair.
+Choisis iPhone ou Android et renseigne ton email. Les inscriptions sont enregistrées dans le suivi privé FitStreet.
 
-**Il s’agit d’une démonstration.** Aucune adresse email n’est transmise ou enregistrée.
-Les invitations TestFlight et le téléchargement de l’APK sont simulés. Le bouton
-App Store ouvre la véritable fiche de TestFlight.
+- Android : utilise l’adresse associée à ton compte Google. La confirmation propose le téléchargement de l’APK privé uniquement après vérification du droit Drive.
+- iPhone : la confirmation indique si l’accès TestFlight est prêt ou encore en cours. Une notification Apple peut être nécessaire pour accepter l’invitation ; la page ne confirme pas sa livraison.
+- Le bouton soleil permet de changer de thème.
 
-Le rendu est une maquette personnalisée du parcours envisagé. Ce n’est pas une
-capture de Notion : l’habillage exact devra être adapté si Notion gratuit est retenu.
-Le parcours Android prévu garde l’email obligatoire pour le suivi dans un Sheet
-privé, puis affiche le téléchargement après attribution de l’accès Drive, sans
-attendre un email. Le branchement Google et App Store Connect reste à activer.
+Le formulaire effectue une navigation POST classique vers Apps Script, avec uniquement `email`, `platform` et `website`. Aucun succès n’est simulé dans le navigateur. Un délai de confirmation permet de réessayer avec le même email ; la collecte serveur déduplique les inscriptions.
 
-### Accueil
+Endpoint de production configuré : `https://script.google.com/macros/s/AKfycbySF1N5W9GzOeef7fN72DOMtptlUX9aTX9ulWwL5UPN0BPze5lm2ZATw0U_rsjxWQWMXA/exec`.
 
-![Aperçu FitStreet sur iPhone](./apercu-iphone.png)
-
-[Ouvrir l’image en grand](./apercu-iphone.png)
-
-### Après le choix iPhone
-
-![Étapes TestFlight](./parcours-iphone.png)
-
-### Après le choix Android
-
-![Étapes Android](./parcours-android.png)
-
-### Thème clair
-
-![Accueil en thème clair](./apercu-clair.png)
-
-Contrôles automatisés : saisie invalide, parcours iOS/Android, changement de thème,
-retour au formulaire et largeurs 320, 390, 430 et 1280 px. Aucun essai physique
-sur iPhone n’est revendiqué. Aucun code ni aucune donnée de l’application ne figure ici.
+Le branchement technique du formulaire ne remplace pas la vérification réelle des parcours Google Drive et TestFlight.

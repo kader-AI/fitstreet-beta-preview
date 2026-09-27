@@ -1,10 +1,13 @@
 'use strict';
-// Standalone prototype: no requests, email storage, analytics or backend calls.
+// Native POST navigation: only the server confirms registration and access.
 const form = document.querySelector('#beta-form');
 const email = document.querySelector('#email');
-const signup = document.querySelector('#signup');
-const result = document.querySelector('#result');
 const error = document.querySelector('#email-error');
+const submitButton = form.querySelector('button[type="submit"]');
+const submitLabel = submitButton.innerHTML;
+const status = document.querySelector('#submission-status');
+let submitting = false;
+let recoveryTimer;
 const selectedPlatform = () => form.elements.platform.value;
 const updatePlatform = () => {
   const ios = selectedPlatform() === 'ios';
@@ -14,52 +17,42 @@ const updatePlatform = () => {
     : 'Un compte Google est nécessaire pour télécharger l’APK privé. Gmail, Hotmail ou Outlook : utilise l’adresse associée à ce compte.';
 };
 form.querySelectorAll('[name=platform]').forEach(input => input.addEventListener('change', updatePlatform));
-document.querySelector('#demo-fill').addEventListener('click', () => {
-  email.value = 'demo@exemple.fr';
-  email.removeAttribute('aria-invalid');
-  error.hidden = true;
-  form.requestSubmit();
-});
 email.addEventListener('input', () => { error.hidden = true; email.removeAttribute('aria-invalid'); });
+const resetSubmission = message => {
+  clearTimeout(recoveryTimer);
+  submitting = false;
+  submitButton.disabled = false;
+  submitButton.innerHTML = submitLabel;
+  form.removeAttribute('aria-busy');
+  status.textContent = message || '';
+  status.hidden = !message;
+};
 form.addEventListener('submit', event => {
-  event.preventDefault();
+  if (submitting) { event.preventDefault(); return; }
   email.value = email.value.trim();
-  if (!email.validity.valid) {
-    error.hidden = false;
-    email.setAttribute('aria-invalid', 'true');
-    email.focus();
+  if (!form.checkValidity()) {
+    event.preventDefault();
+    error.hidden = email.validity.valid;
+    if (!email.validity.valid) email.setAttribute('aria-invalid', 'true');
+    form.reportValidity();
     return;
   }
-  const ios = selectedPlatform() === 'ios';
-  document.querySelector('#recipient').textContent = email.value;
-  document.querySelector('#result-description').textContent = ios
-    ? 'Voici les étapes pour découvrir FitStreet sur ton iPhone.'
-    : 'Voici les étapes pour découvrir FitStreet sur ton Android.';
-  document.querySelector('#ios-steps').hidden = !ios;
-  document.querySelector('#android-steps').hidden = ios;
-  document.querySelector('#download-note').hidden = true;
-  signup.hidden = true;
-  result.hidden = false;
-  email.blur();
-  result.focus({ preventScroll: true });
-  window.scrollTo(0, 0);
+  // Keep named fields enabled so the browser includes all three POST fields.
+  submitting = true;
+  submitButton.disabled = true;
+  submitButton.textContent = 'Inscription en cours…';
+  form.setAttribute('aria-busy', 'true');
+  status.textContent = 'Ouverture de la page de confirmation…';
+  status.hidden = false;
+  recoveryTimer = setTimeout(() => resetSubmission('La confirmation tarde à s’ouvrir. Vérifie ta connexion et réessaie avec le même email. Ton inscription peut déjà avoir été enregistrée.'), 45000);
+  // No preventDefault on a valid first submission: navigate with the native POST.
 });
-document.querySelector('#reset').addEventListener('click', () => {
-  const next = selectedPlatform() === 'ios' ? 'android' : 'ios';
-  form.querySelector(`[value="${next}"]`).checked = true;
-  updatePlatform();
-  result.hidden = true;
-  signup.hidden = false;
-  signup.focus({ preventScroll: true });
-  window.scrollTo(0, 0);
-});
-document.querySelector('#apk-demo').addEventListener('click', () => {
-  document.querySelector('#download-note').hidden = false;
-  document.querySelector('#download-note').scrollIntoView({ block: 'nearest' });
-});
+window.addEventListener('pagehide', () => clearTimeout(recoveryTimer));
+window.addEventListener('pageshow', () => { resetSubmission(''); updatePlatform(); });
 document.querySelector('#theme').addEventListener('click', event => {
   const light = document.body.classList.toggle('light');
   event.currentTarget.textContent = light ? '☾' : '☀';
   event.currentTarget.setAttribute('aria-label', light ? 'Passer au thème sombre' : 'Passer au thème clair');
   document.querySelector('meta[name="theme-color"]').content = light ? '#f8faf9' : '#08121f';
 });
+updatePlatform();

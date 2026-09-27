@@ -6,12 +6,12 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#08121f">
   <meta name="referrer" content="no-referrer">
-  <title>FitStreet — Aperçu de l’accès bêta</title>
+  <title>FitStreet — Accès bêta</title>
   <link rel="stylesheet" href="./style.css">
   <script src="./preview.js" defer></script>
 </head>
 <body>
-  <div class="preview-bar"><span><i></i> APERÇU INTERACTIF</span><button id="theme" aria-label="Passer au thème clair">☀</button></div>
+  <div class="preview-bar"><span><i></i> BÊTA FITSTREET</span><button id="theme" aria-label="Passer au thème clair">☀</button></div>
   <main>
     <header class="brand"><img src="./fitstreet-logo.png" width="1254" height="1254" alt="FitStreet, musculation et course à pied"></header>
     <section id="signup" tabindex="-1" aria-labelledby="heading">
@@ -19,43 +19,24 @@
       <h1 id="heading">Ton prochain objectif<br>commence <em>ici.</em></h1>
       <p class="intro">Découvre FitStreet en avant-première.<br>Entraîne-toi. Progresse. Donne ton avis.</p>
       <div class="benefits"><span>Course</span><b>·</b><span>Musculation</span><b>·</b><span>Poids du corps</span></div>
-      <form id="beta-form" novalidate>
+      <form id="beta-form" method="post" action="https://script.google.com/macros/s/AKfycbySF1N5W9GzOeef7fN72DOMtptlUX9aTX9ulWwL5UPN0BPze5lm2ZATw0U_rsjxWQWMXA/exec" enctype="application/x-www-form-urlencoded" accept-charset="UTF-8">
         <fieldset>
           <legend>Tu utilises quel téléphone ?</legend>
           <div class="platforms">
-            <label class="platform"><input type="radio" name="platform" value="ios" checked><span class="platform-box"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M11 19h2"/></svg><strong>iPhone</strong><span class="check">✓</span></span></label>
-            <label class="platform"><input type="radio" name="platform" value="android"><span class="platform-box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 5-2-3m12 3 2-3M4 12a8 8 0 0 1 16 0v7H4Z"/><path d="M8 22v-3m8 3v-3M1 12v6m22-6v6"/><circle cx="8" cy="9" r=".5"/><circle cx="16" cy="9" r=".5"/></svg><strong>Android</strong><span class="check">✓</span></span></label>
+            <label class="platform"><input type="radio" name="platform" value="ios" checked required><span class="platform-box"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M11 19h2"/></svg><strong>iPhone</strong><span class="check">✓</span></span></label>
+            <label class="platform"><input type="radio" name="platform" value="android" required><span class="platform-box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 5-2-3m12 3 2-3M4 12a8 8 0 0 1 16 0v7H4Z"/><path d="M8 22v-3m8 3v-3M1 12v6m22-6v6"/><circle cx="8" cy="9" r=".5"/><circle cx="16" cy="9" r=".5"/></svg><strong>Android</strong><span class="check">✓</span></span></label>
           </div>
         </fieldset>
         <label class="email-label" for="email">Ton adresse email</label>
-        <div class="email-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg><input id="email" type="email" inputmode="email" autocomplete="off" placeholder="toi@exemple.fr" required aria-describedby="email-error demo-note"></div>
+        <div class="email-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg><input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="Ton adresse email" required aria-describedby="email-error platform-note signup-note"></div>
         <p id="email-error" class="error" role="alert" hidden>Vérifie ton adresse email pour continuer.</p>
         <p id="platform-note" class="platform-note">Sur iPhone, l’installation passe par TestFlight.</p>
-        <button type="submit" class="primary">Recevoir la bêta <span aria-hidden="true">→</span></button>
+        <div hidden aria-hidden="true"><input name="website" value="" tabindex="-1" autocomplete="off"></div>
+        <button type="submit" class="primary">Rejoindre la bêta <span aria-hidden="true">→</span></button>
+        <p id="submission-status" class="platform-note" role="status" aria-live="polite" hidden></p>
         <div class="reassurance"><span>✓ Accès gratuit</span><span>✓ Sans carte bancaire</span></div>
-        <button type="button" id="demo-fill" class="demo-link">Essayer avec une adresse fictive</button>
       </form>
-      <p id="demo-note" class="demo-note">Maquette : ton email reste sur cet écran.<br>Aucune inscription ni aucun envoi réel.</p>
-    </section>
-    <section id="result" hidden tabindex="-1" aria-labelledby="result-title">
-      <div class="success-mark" aria-hidden="true">✓</div>
-      <div class="eyebrow">TON ACCÈS FITSTREET</div>
-      <h1 id="result-title">À toi de <em>jouer.</em></h1>
-      <p class="intro" id="result-description"></p>
-      <div class="recipient"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg><span id="recipient"></span><span class="tag">DÉMO</span></div>
-      <div id="ios-steps" class="steps">
-        <article><span class="step-number">1</span><div><h2>Installe TestFlight</h2><p>L’app gratuite d’Apple pour tester FitStreet.</p><a class="secondary" href="https://apps.apple.com/fr/app/testflight/id899247664" target="_blank" rel="noopener noreferrer">Ouvrir l’App Store <span aria-hidden="true">↗</span></a></div></article>
-        <article><span class="step-number">2</span><div><h2>Ouvre ton invitation</h2><p>Dans la version finale, tu recevras un email TestFlight pour rejoindre la bêta.</p></div></article>
-        <article><span class="step-number">3</span><div><h2>Installe FitStreet</h2><p>Accepte l’invitation, puis touche « Installer » dans TestFlight.</p></div></article>
-      </div>
-      <div id="android-steps" class="steps" hidden>
-        <article><span class="step-number">1</span><div><h2>Télécharge FitStreet</h2><p>Connecte-toi à Drive avec le compte Google indiqué lors de l’inscription. Son adresse peut être Gmail, Hotmail ou Outlook.</p><button type="button" class="secondary" id="apk-demo">Télécharger l’APK <span aria-hidden="true">↓</span></button></div></article>
-        <article><span class="step-number">2</span><div><h2>Ouvre le fichier</h2><p>Depuis les téléchargements de ton téléphone.</p></div></article>
-        <article><span class="step-number">3</span><div><h2>Confirme l’installation</h2><p>Si Android le demande, autorise cette source, puis touche « Installer ».</p></div></article>
-      </div>
-      <p id="download-note" class="download-note" role="status" hidden>Dans la version finale, ton email sera enregistré pour le suivi, puis ce bouton ouvrira l’APK sur Drive dès que ton accès sera accordé. Aucun fichier n’est téléchargé dans cet aperçu.</p>
-      <button id="reset" type="button" class="primary">Tester l’autre parcours <span aria-hidden="true">↶</span></button>
-      <p class="demo-note">Simulation uniquement · Aucun email envoyé.</p>
+      <p id="signup-note" class="demo-note">Ton email est enregistré pour gérer ton accès à la bêta et le suivi des testeurs.</p>
     </section>
     <footer><span>FITSTREET</span><span>La progression, ensemble.</span></footer>
   </main>
