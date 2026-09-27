@@ -7,9 +7,11 @@ const result = document.querySelector('#result');
 const error = document.querySelector('#email-error');
 const selectedPlatform = () => form.elements.platform.value;
 const updatePlatform = () => {
-  document.querySelector('#platform-note').textContent = selectedPlatform() === 'ios'
+  const ios = selectedPlatform() === 'ios';
+  document.querySelector('label[for="email"]').textContent = ios ? 'Ton adresse email' : 'Email de ton compte Google';
+  document.querySelector('#platform-note').textContent = ios
     ? 'Sur iPhone, l’installation passe par TestFlight.'
-    : 'Indique l’adresse de ton compte Google. Après l’inscription, tu accèdes au téléchargement ici.';
+    : 'Un compte Google est nécessaire pour télécharger l’APK privé. Gmail, Hotmail ou Outlook : utilise l’adresse associée à ce compte.';
 };
 form.querySelectorAll('[name=platform]').forEach(input => input.addEventListener('change', updatePlatform));
 document.querySelector('#demo-fill').addEventListener('click', () => {
